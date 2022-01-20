@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clibanez.helpdesk.domain.Tecnico;
-
+import com.clibanez.helpdesk.domain.dtos.TecnicoDTO;
 import com.clibanez.helpdesk.services.TecnicoService;
 
 @RestController
@@ -21,9 +21,9 @@ public class TecnicoResource {
 	private TecnicoService service;
 	
 	@GetMapping(value = "/{id}")
-	private ResponseEntity<Tecnico> findById(@PathVariable Integer id){
+	private ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
 		Tecnico obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
 
