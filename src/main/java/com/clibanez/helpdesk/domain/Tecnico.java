@@ -3,8 +3,15 @@ package com.clibanez.helpdesk.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Tecnico extends Pessoa{
+	private static final long serialVersionUID = 1L;
 	
+
+	@OneToMany(mappedBy = "tecnico")
 	private List<Chamado> chamados = new ArrayList<>();
 
 	public Tecnico() {
@@ -21,6 +28,10 @@ public class Tecnico extends Pessoa{
 
 	public void setChamados(List<Chamado> chamados) {
 		this.chamados = chamados;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	

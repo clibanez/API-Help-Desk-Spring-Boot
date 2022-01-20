@@ -6,20 +6,36 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import com.clibanez.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public abstract class Pessoa {
+	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	protected Integer id;
 	protected String nome;
+	
+	
+	@Column(unique = true)
 	protected String cpf;
 	protected String email;
 	protected String senha;
 	
+	@ElementCollection(fetch = FetchType.EAGER)
 	protected Set<Integer> perfis = new HashSet<>(); 
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
 	public Pessoa() {
@@ -109,6 +125,10 @@ public abstract class Pessoa {
 			return false;
 		Pessoa other = (Pessoa) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	
