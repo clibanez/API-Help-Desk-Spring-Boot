@@ -1,14 +1,17 @@
 package com.clibanez.helpdesk.domain.dtos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.clibanez.helpdesk.domain.Tecnico;
+import com.clibanez.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TecnicoDTO {
+public class TecnicoDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	protected Integer id;
 	protected String nome;
@@ -19,6 +22,11 @@ public class TecnicoDTO {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
+	
+	public TecnicoDTO() {
+		super();
+		addPerfil(Perfil.CLIENTE);
+	}
 
 	public TecnicoDTO(Tecnico obj) {
 		super();
@@ -71,17 +79,24 @@ public class TecnicoDTO {
 		this.senha = senha;
 	}
 
-	public Set<Integer> getPerfis() {
-		return perfis;
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setPerfis(Set<Integer> perfis) {
-		this.perfis = perfis;
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
+	}
+
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 	
 	
 
-	
 	
 
 }

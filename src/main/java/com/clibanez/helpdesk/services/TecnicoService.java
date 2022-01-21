@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.clibanez.helpdesk.domain.Tecnico;
+import com.clibanez.helpdesk.domain.dtos.TecnicoDTO;
 import com.clibanez.helpdesk.repositories.TecnicoRepository;
 import com.clibanez.helpdesk.services.exceptions.ObjectNotFoundException;
 
@@ -27,6 +28,13 @@ public class TecnicoService {
 	
 	public List<Tecnico> findAll() {
 		return repository.findAll();
+	}
+	
+	public Tecnico create(TecnicoDTO objDTO) {
+		objDTO.setId(null);
+		Tecnico newObj = new Tecnico(objDTO);
+		return repository.save(newObj);
+		
 	}
 	
 
