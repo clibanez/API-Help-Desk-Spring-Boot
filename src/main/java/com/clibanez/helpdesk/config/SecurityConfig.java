@@ -28,7 +28,7 @@ import com.clibanez.helpdesk.security.JWTUtil;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/chamados/**","/clientes/**", "/clientes"};
+	private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
 
     @Autowired    
     private Environment env;
